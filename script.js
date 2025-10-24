@@ -1,10 +1,10 @@
 // Quiz Configuration
 const QUIZ_CONFIG = {
-    maxPlayers: 50,
     timePerQuestion: 20,
     xpPerQuestion: 100,
-    totalQuestions: 25, // CHANGED FROM 10 TO 25
-    resetHours: 2
+    totalQuestions: 25,
+    resetHours: 2,
+    leaderboardSize: 50
 };
 
 // Game State
@@ -15,7 +15,7 @@ let gameState = {
     score: 0
 };
 
-// ALL 25 KITE AI Questions
+// ALL 25 KITE AI QUESTIONS
 const QUIZ_QUESTIONS = [
     {
         question: "What was the current Kite AI project (founded in 2024) formerly known as?",
@@ -144,6 +144,5 @@ const QUIZ_QUESTIONS = [
     }
 ];
 
-// [Rest of the code remains exactly the same...]
-// DOM Elements, init(), validateAndStart(), startQuiz(), loadQuestion(), etc.
-// Everything below this stays the same as the previous script.js
+// [REST OF THE CODE - DOM Elements, init(), cleanupOldPlayers(), validateAndStart(), etc.]
+// Keep all the other functions exactly as in the previous version
