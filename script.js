@@ -333,9 +333,23 @@ function selectAnswer(selectedIndex) {
     }, 2000);
 }
 
-// TIMER FUNCTIONS
+
+// END QUIZ AND LEADERBOARD
+function endQuiz() {
+    console.log("🏁 Quiz ended for:", gameState.currentPlayer);
+    showLeaderboard();
+    showScreen('leaderboard');
+}
+
+function showLeaderboar// TIMER FUNCTIONS - FIXED
 let timer;
+
 function startTimer() {
+    // CLEAR ANY EXISTING TIMER FIRST
+    if (timer) {
+        clearInterval(timer);
+    }
+    
     let timeLeft = QUIZ_CONFIG.timePerQuestion;
     const timeLeftEl = document.getElementById('timeLeft');
     const timerProgress = document.getElementById('timerProgress');
@@ -360,28 +374,70 @@ function handleTimeUp() {
     const question = QUIZ_QUESTIONS[gameState.currentQuestion];
     const feedback = document.getElementById('feedback');
     
+    // DISABLE BUTTONS
     options.forEach(btn => btn.disabled = true);
-    options[question.correct].classList.add('correct');
+    
+    // SHOW CORRECT ANSWER
+    if (options[question.correct]) {
+        options[question.correct].classList.add('correct');
+    }
     
     if (feedback) {
         feedback.textContent = 'Time\'s up! No points.';
         feedback.className = 'feedback incorrect';
     }
     
+    // MOVE TO NEXT QUESTION
     setTimeout(() => {
         gameState.currentQuestion++;
         loadQuestion();
     }, 2000);
 }
 
-// END QUIZ AND LEADERBOARD
-function endQuiz() {
-    console.log("🏁 Quiz ended for:", gameState.currentPlayer);
-    showLeaderboard();
-    showScreen('leaderboard');
-}
-
-function showLeaderboard() {
+// ALSO UPDATE selectAnswer TO CLEAR TIMER
+function selectAnswer(selectedIndex) {
+    // CLEAR TIMER WHEN ANSWER IS SELECTED
+    if (timer) {
+        clearInterval(timer);
+    }
+    
+    const question = QUIZ_QUESTIONS[gameState.currentQuestion];
+    const options = document.querySelectorAll('.option-btn');
+    const feedback = document.getElementById('feedback');
+    const currentScore = document.getElementById('currentScore');
+    
+    options.forEach(btn => btn.disabled = true);
+    options[selectedIndex].classList.add('selected');
+    
+    if (selectedIndex === question.correct) {
+        options[selectedIndex].classList.add('correct');
+        if (feedback) {
+            feedback.textContent = 'Correct! +100 XP 🎉';
+            feedback.className = 'feedback correct';
+        }
+        
+        gameState.score += QUIZ_CONFIG.xpPerQuestion;
+        if (currentScore) currentScore.textContent = gameState.score;
+        
+        if (gameState.players.has(gameState.currentPlayer)) {
+            const player = gameState.players.get(gameState.currentPlayer);
+            player.score += QUIZ_CONFIG.xpPerQuestion;
+            savePlayers();
+        }
+    } else {
+        options[selectedIndex].classList.add('incorrect');
+        options[question.correct].classList.add('correct');
+        if (feedback) {
+            feedback.textContent = 'Wrong! No points.';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+    
+    setTimeout(() => {
+        gameState.currentQuestion++;
+        loadQuestion();
+    }, 2000);
+}d() {
     cleanupOldPlayers();
     
     const playersArray = Array.from(gameState.players.values())
