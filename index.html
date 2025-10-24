@@ -24,10 +24,10 @@
                 <div id="usernameError" class="error-message"></div>
                 <button id="joinBtn" class="btn-primary">Start Quiz</button>
                 <div class="player-count">
-                    <span id="currentPlayers">0</span>/50 Players Registered
+                    <span id="currentPlayers">0</span> Active Players
                 </div>
                 <div class="reset-timer">
-                    🔄 Auto reset in: <span id="resetTimer">02:00:00</span>
+                    🔄 Username resets in: <span id="resetTimer">02:00:00</span>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
         <!-- Quiz Screen -->
         <div id="quizScreen" class="screen">
             <div class="quiz-header">
-                <div class="player-info">Player: <span id="quizUsername"></span></div>
+                <div class="player-info">Player: <span id="quizUsername">User</span></div>
                 <div class="progress">Question <span id="currentQuestion">1</span>/25</div>
                 <div class="score">Score: <span id="currentScore">0</span> XP</div>
                 <div class="timer">
@@ -47,11 +47,16 @@
             </div>
             
             <div class="question-container">
-                <h2 id="questionText"></h2>
-                <div id="optionsContainer" class="options-container"></div>
+                <h2 id="questionText">Question will appear here</h2>
+                <div id="optionsContainer" class="options-container">
+                    <button class="option-btn">Option A</button>
+                    <button class="option-btn">Option B</button>
+                    <button class="option-btn">Option C</button>
+                    <button class="option-btn">Option D</button>
+                </div>
             </div>
 
-            <div class="feedback" id="feedback"></div>
+            <div class="feedback" id="feedback">Feedback will appear here</div>
         </div>
 
         <!-- Leaderboard Screen -->
@@ -59,10 +64,16 @@
             <div class="leaderboard-content">
                 <h2>🏆 LEADERBOARD</h2>
                 <p class="xp-rate">1 Correct Answer = 100 XP</p>
-                <div id="leaderboard" class="leaderboard"></div>
+                <div id="leaderboard" class="leaderboard">
+                    <div class="leaderboard-item">
+                        <div class="rank">#1</div>
+                        <div class="player-name">Player1</div>
+                        <div class="player-score">500 XP</div>
+                    </div>
+                </div>
                 <button id="playAgainBtn" class="btn-primary">Play Again</button>
                 <div class="reset-info">
-                    🔄 All data resets automatically every 2 hours
+                    🔄 Usernames reset every 2 hours
                 </div>
             </div>
         </div>
